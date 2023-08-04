@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bs.css">
+    <title>Hex_And_Str</title>
+    <style>
+      .btn-super-lg {
+      font-size: 25px;
+      width: 100px/
+      height: 75px;
+      padding: 100px;
+      margin: 10px;
+      text-align: center;
+}
+    </style>
+</head>
+
+<body>
+        <div class="row">
+            <div class="col-12" style="padding: 250px"></div>
+            <div class="col-6">
+                <input type="submit" class="btn btn-super-lg btn-primary" value="转为字符串" onclick="hex()" />
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <input type="submit" class="btn btn-super-lg btn-primary float-right" value="转为16进制" onclick="str()" />
+            </div>
+            <div class="col-12 text-center">
+                <h1 id="en_de" style="padding: 50px; font-size: 100px">这里显示结果</h1>
+            </div>
+        </div>
+   <script>
+   function hexToString(hex) {
+  let decodedString = '';
+  let i = 0;
+
+  if (hex.length % 2 !== 0) {
+    hex = '0' + hex;
+  }
+
+  while (i < hex.length) {
+    let codePoint = parseInt(hex.substr(i,2), 16);
+    decodedString += String.fromCharCode(codePoint);
+    i += 2;
+  }
+
+  let decodedUnicode = decodeURIComponent(escape(decodedString));
+  return decodedUnicode;
+}
+
+function stringToHex(stringInput) {
+    let encodedString = "";
+    for (let i = 0; i < stringInput.length; i++) {
+        encodedString += stringInput.charCodeAt(i).toString(16).padStart(2, "0");
+    }
+    return encodedString;
+}
+
+
+function hex() {
+    let hex = prompt("请输入16进制: ");
+    let decodedString = hexToString(hex);
+    let hex_de = document.getElementById('en_de');
+    hex_de.innerHTML = "结果: " + decodedString;
+}
+
+
+function str() {
+    let str = prompt("请输入字符串: ");
+    let encodedString = stringToHex(str);
+    let str_en = document.getElementById('en_de');
+    str_en.innerHTML = "结果: " + encodedString;
+}
+   </script>
+</body>
+
+</html>
